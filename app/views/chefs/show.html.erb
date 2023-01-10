@@ -8,10 +8,11 @@
 </ul>
 
 <%= form_with  url: "/chefs/#{@chef.id}/dishes", method: :post do |f| %>
-
   <%= f.label "Enter ID of an existing ingredient" %>
   <%= f.number_field :dish_id %>
   <%= f.submit "Add Dish" %>
-  <% end %>
+<% end %>
+
+<%= link_to "Chef's Favorite Ingredients", chef_ingredients_path(@chef) %>
 
   
