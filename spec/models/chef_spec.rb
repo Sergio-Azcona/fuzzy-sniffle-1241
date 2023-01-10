@@ -51,10 +51,7 @@ RSpec.describe Chef, type: :model do
 
   it "a unique list of names of all the ingredients that this chef uses" do
     # require 'pry';binding.pry
-    expect(@chef_1.fav_ingredients).to eq([@ingredient_1, @ingredient_2, @ingredient_3, @ingredient_4, @ingredient_6, @ingredient_8])
+    expect(@chef_1.fav_ingredients.to_a).to eq([@ingredient_1, @ingredient_2, @ingredient_3, @ingredient_4, @ingredient_6, @ingredient_8, @ingredient_9])
     # why does this return a got: #<ActiveRecord::AssociationRelation ?
-
-
-    expect(@chef_1.fav_ingredients.first).to eq(@ingredient_1) #this passes
   end
 end

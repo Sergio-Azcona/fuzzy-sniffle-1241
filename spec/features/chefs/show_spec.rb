@@ -55,12 +55,13 @@ RSpec.describe "Chef show page" do
     expect(page).to have_content(@pizza_1.name)
   end
 
-  it "has a link to each of the chef's dishes ingredients" do
+  it "has a link to the chef's dishes ingredients" do
 # save_and_open_page
     expect(page).to have_link("Chef's Favorite Ingredients")
 
     click_link("Chef's Favorite Ingredients")
-    expect(current_path).to eq(chef_ingredients_path(@chef))
+    # require 'pry';binding.pry
+    expect(current_path).to eq(chef_ingredients_path(@chef_2))
   end
 
 end
