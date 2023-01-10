@@ -1,0 +1,7 @@
+<h1><center><%= @chef.name %>'s Favorite Ingredients</h1></center>
+
+<ul>
+<% @chef.fav_ingredients.each do |ingredient| %>
+  <h4><li>Ingredient Name: <%= ingredient.name %></li></h4>
+<% end %>
+</ul>

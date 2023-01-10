@@ -5,4 +5,9 @@ class Chef < ApplicationRecord
   has_many :ingredients, through: :dishes
   has_many :dish_ingredients, through: :dishes
 
+  def fav_ingredients
+    # require 'pry';binding.pry
+    self.ingredients.distinct
+  end
+
 end

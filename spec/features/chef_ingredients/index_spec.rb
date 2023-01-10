@@ -1,16 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Chef, type: :model do
-  describe "validations" do
-    it {should validate_presence_of :name}
-  end
-  describe "relationships" do
-    it {should have_many :dishes}
-    it {should have_many(:ingredients).through(:dishes)}
-  
-    it {should have_many(:dish_ingredients).through(:dishes)}
-  end
-
+RSpec.describe "Chef Ingredient Index page" do
   before (:each) do
     @chef_1 = Chef.create!(name: "Chef Primo 1")
     @chef_2 = Chef.create!(name: "Chef Grill 2")
@@ -43,18 +33,19 @@ RSpec.describe Chef, type: :model do
     @dish_ingredients_8 = DishIngredient.create!(dish: @burger_4, ingredient: @ingredient_2)
     @dish_ingredients_9 = DishIngredient.create!(dish: @pasta_2, ingredient: @ingredient_9)
     @dish_ingredients_10 = DishIngredient.create!(dish: @burger_4, ingredient: @ingredient_7)
-    @dish_ingredients_11 = DishIngredient.create!(dish: @pizza_1, ingredient: @ingredient_1)
-    @dish_ingredients_12 = DishIngredient.create!(dish: @pizza_1, ingredient: @ingredient_2)
-    @dish_ingredients_13 = DishIngredient.create!(dish: @pasta_2, ingredient: @ingredient_4)
-    @dish_ingredients_14 = DishIngredient.create!(dish: @pizza_1, ingredient: @ingredient_3)
+  
+    visit chef_ingredients_path(@chef_1)
   end
 
-  it "a unique list of names of all the ingredients that this chef uses" do
-    # require 'pry';binding.pry
-    expect(@chef_1.fav_ingredients).to eq([@ingredient_1, @ingredient_2, @ingredient_3, @ingredient_4, @ingredient_6, @ingredient_8])
-    # why does this return a got: #<ActiveRecord::AssociationRelation ?
-
-
-    expect(@chef_1.fav_ingredients.first).to eq(@ingredient_1) #this passes
+  it "displays a unique list of names of all the ingredients that this chef uses" do
+    expect(page).to have_content(@chef_1.name)
+ 
+    expect(page).to have_content(@ingredient_1.name)
+    expect(page).to have_content(@ingredient_2.name)
+    expect(page).to have_content(@ingredient_3.name)
+    expect(page).to have_content(@ingredient_4.name)
+    expect(page).to have_content(@ingredient_6.name)
+    expect(page).to have_content(@ingredient_8.name)
   end
+
 end
