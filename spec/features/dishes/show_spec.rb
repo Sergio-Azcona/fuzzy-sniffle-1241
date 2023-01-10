@@ -1,17 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Dish, type: :model do
-  describe "validations" do
-    it {should validate_presence_of :name}
-    it {should validate_presence_of :description}
-  end
-
-  describe "relationships" do
-    it {should belong_to :chef}
-    it {should have_many :dish_ingredients}
-    it {should have_many(:ingredients).through(:dish_ingredients)}
-  end
-
+RSpec.describe "Dish show page" do
   before (:each) do
     @chef_1 = Chef.create!(name: "Chef Primo 1")
     @chef_2 = Chef.create!(name: "Chef Grill 2")
@@ -43,11 +32,23 @@ RSpec.describe Dish, type: :model do
     @dish_ingredients_8 = DishIngredient.create!(dish: @burger_4, ingredient: @ingredient_2)
     @dish_ingredients_9 = DishIngredient.create!(dish: @pasta_2, ingredient: @ingredient_9)
     @dish_ingredients_10 = DishIngredient.create!(dish: @burger_4, ingredient: @ingredient_7)
+  
+    visit chef_dish_path(@chef_1, @pizza_1)
   end
 
-  it 'returns the total number of calories for a dish' do
-    expect(@pizza_1.total_calories).to eq(200)
-    expect(@burger_4.total_calories).to eq(190)
-  end
+  describe "page has dish's name, description, chef's name" do
+    it "displays lists ingredients for that dish and a total calorie count for that dish" do
+      # require 'pry';binding.pry
+      # save_and_open_page
+      expect(page).to have_content(@chef_1.name)
+      expect(page).to have_content(@pizza_1.name)
+      expect(page).to have_content(@pizza_1.description)
+      expect(page).to have_content(@pizza_1.total_calories)
 
+      expect(page).to have_content(@ingredient_1.name)
+      expect(page).to have_content(@ingredient_2.name)
+      expect(page).to have_content(@ingredient_3.name)
+      expect(page).to have_content(@ingredient_6.name)
+    end
+  end
 end
