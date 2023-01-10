@@ -1,0 +1,17 @@
+<center><h1><%= @chef.name %></h1></center>
+
+<h3>Chef Dish</h3>
+<ul>
+<% @chef.dishes.each do |dish| %>
+  <h4><li>Dish Name: <%= dish.name %></li></h4>
+<% end %>
+</ul>
+
+<%= form_with  url: "/chefs/#{@chef.id}/dishes", method: :post do |f| %>
+
+  <%= f.label "Enter ID of an existing ingredient" %>
+  <%= f.number_field :dish_id %>
+  <%= f.submit "Add Dish" %>
+  <% end %>
+
+  
